@@ -1,9 +1,10 @@
 # KnowledgeServer
 KnowledgeServer
-###
+
+### 介绍
 传播知识，让知识变现
 
-# todo list
+### todo list
 - [ ] 用户模块
     - [x] 用户登录
     - [x] 用户注册
@@ -26,12 +27,10 @@ KnowledgeServer
 - [ ] 关注系统
     - [ ] 关注用户
     - [ ] 关注分组
+      
     
-    
-    
-    
-    
-# conf/conf.js
+### 配置文件 conf/conf.js
+
 ```
 module.exports={
   mongodb:{
