@@ -1,18 +1,19 @@
 const Koa = require('koa')
 const app = new Koa()
-const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-const config = require('./conf/conf')
 const users = require('./routes/users')
 const knowlegde  = require('./routes/knowledge')
 const public = require('./routes/public')
+const session = require("koa-session2")
+const store = require('./src/tools/store') 
 require('./src/controller')
 
 // error handler
 onerror(app)
+
 
 // middlewares
 app.use(bodyparser({
@@ -20,12 +21,17 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-
-
-// app.use(require('koa-static')(__dirname + '/public'))
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
-}))
+//session
+app.use(session({
+  key: "SESSIONID",   //default "koa:sess"
+  store: new store(),  //添加 store 配置项
+  maxAge: 60 * 60 * 23  //设置session超时时间
+}));
+app.use(async (ctx,next) => {
+  let n = ctx.session.views || 0;
+  ctx.session.views = ++n;
+  await next()
+});
 
 // logger
 app.use(async (ctx, next) => {

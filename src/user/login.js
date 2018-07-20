@@ -13,6 +13,7 @@ module.exports = {
             let login = await Auth.find({id:user[0].id})
             if(login){
                 if(login[0].password === req.password){
+                    Redis.set(user[0].id,)
                     Json.res(ctx,202,'登录成功',{
                         userId: user[0].id
                     })
