@@ -5,6 +5,7 @@ const Json = require('../tools/jsonResponse')
 
 module.exports = {
     query: async (ctx, next) => {
+        console.log(ctx.session)
         let result = await Konw.find().limit(2)
         let data = []
         if (result) {

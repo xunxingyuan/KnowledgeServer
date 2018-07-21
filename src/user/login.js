@@ -3,6 +3,7 @@ const User = db.User
 const Auth = db.Auth
 const Json = require('../tools/jsonResponse')
 
+
 module.exports = {
     login: async (ctx,next)=>{
         let req = ctx.request.body
@@ -13,8 +14,8 @@ module.exports = {
             let login = await Auth.find({id:user[0].id})
             if(login){
                 if(login[0].password === req.password){
-                    Redis.set(user[0].id,)
-                    Json.res(ctx,202,'登录成功',{
+                    ctx.session.userId = user[0].id
+                    Json.res(ctx,200,'登录成功',{
                         userId: user[0].id
                     })
                 }else{

@@ -5,7 +5,7 @@ class Store {
    constructor() { 
       this.redis = new redis({
         host : '127.0.0.1',//安装好的redis服务器地址
-        ttl : 60 * 60 * 23,//过期时间
+        ttl : 60 * 60,//过期时间
       })
     }
     getId(length) {

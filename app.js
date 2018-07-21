@@ -5,10 +5,10 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const users = require('./routes/users')
-const knowlegde  = require('./routes/knowledge')
+const knowlegde = require('./routes/knowledge')
 const public = require('./routes/public')
 const session = require("koa-session2")
-const store = require('./src/tools/store') 
+const store = require('./src/tools/store')
 require('./src/controller')
 
 // error handler
@@ -17,7 +17,7 @@ onerror(app)
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -25,12 +25,24 @@ app.use(logger())
 app.use(session({
   key: "SESSIONID",   //default "koa:sess"
   store: new store(),  //添加 store 配置项
-  maxAge: 60 * 60 * 23  //设置session超时时间
+  maxAge: 60 * 60  //设置session超时时间
 }));
-app.use(async (ctx,next) => {
-  let n = ctx.session.views || 0;
-  ctx.session.views = ++n;
-  await next()
+app.use(async (ctx, next) => {
+  console.log(ctx.session)
+  console.log(ctx.url)
+  console.log(ctx.url.indexOf('/public/'))
+  if(ctx.url === '/users/login'||ctx.url.indexOf('/public/')>-1){
+    await next()
+  }else{
+    if(ctx.session.hasOwnProperty('userId')&&ctx.session.userId!==null){
+      await next()
+    }else{
+      ctx.body = {
+        code: 10005,
+        msg: 'session过期，请重新登录'
+      }
+    }
+  }
 });
 
 // logger
@@ -43,7 +55,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(users.routes(), users.allowedMethods())
-app.use(knowlegde.routes(),knowlegde.allowedMethods())
+app.use(knowlegde.routes(), knowlegde.allowedMethods())
 app.use(public.routes(), public.allowedMethods())
 
 

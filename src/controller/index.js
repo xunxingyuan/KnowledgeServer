@@ -13,7 +13,7 @@ const knowSchema = require('./knowledge')
 
 //数据库认证
 let authUrl = "mongodb://"+ options.user + ':'+ options.pass + '@' + options.path
-mongoose.connect(authUrl)
+mongoose.connect(authUrl,{ useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', console.error.bind(console, '连接错误：'))
 db.once('open', (callback) => {
