@@ -9,6 +9,7 @@ const knowlegde = require('./routes/knowledge')
 const public = require('./routes/public')
 const session = require("koa-session2")
 const store = require('./src/tools/store')
+
 require('./src/controller')
 
 // error handler
@@ -21,13 +22,15 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+
 //session
 app.use(session({
   key: "SESSIONID",   //default "koa:sess"
   store: new store(),  //添加 store 配置项
-  maxAge: 60 * 60  //设置session超时时间
+  maxAge: 60 * 60 * 1000  //设置session超时时间,
 }));
 app.use(async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Credentials", true)
   if(ctx.url === '/users/login'||ctx.url.indexOf('/public/')>-1){
     await next()
   }else{
