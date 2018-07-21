@@ -28,9 +28,6 @@ app.use(session({
   maxAge: 60 * 60  //设置session超时时间
 }));
 app.use(async (ctx, next) => {
-  console.log(ctx.session)
-  console.log(ctx.url)
-  console.log(ctx.url.indexOf('/public/'))
   if(ctx.url === '/users/login'||ctx.url.indexOf('/public/')>-1){
     await next()
   }else{
