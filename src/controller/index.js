@@ -10,6 +10,10 @@ const options = {
 const userSchema = require('./user')
 const authSchema = require('./auth')
 const knowSchema = require('./knowledge')
+const chargeSchema = require('./user')
+const tradeSchema = require('./user')
+const walletSchema = require('./user')
+
 
 //数据库认证
 let authUrl = "mongodb://"+ options.user + ':'+ options.pass + '@' + options.path
@@ -25,4 +29,8 @@ db.once('open', (callback) => {
 exports.User = mongoose.model('users',userSchema)
 exports.Auth = mongoose.model('auth',authSchema)
 exports.Konwledge = mongoose.model('konwledge',knowSchema)
+exports.Charge = mongoose.model('charge',chargeSchema)
+exports.Trade = mongoose.model('trade',tradeSchema)
+exports.Wallet = mongoose.model('wallet',walletSchema)
+
 
