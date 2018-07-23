@@ -9,6 +9,7 @@ const TradeSchema = new Schema({
     //交易方式（1：购买，0：收入）
     tradeType: Number,
     //商品ID
-    productId: String
+    productId: String,
+    //金额
 })
 module.exports =  TradeSchema
