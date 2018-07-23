@@ -6,13 +6,13 @@ const Json = require('../tools/jsonResponse')
 module.exports = {
     create: async (ctx, next) => {
         let req = ctx.request.body
-        let res = await User.findOne({ id: req.userId })
+        let res = await User.findOne({ id: ctx.session.userId })
         if (res.length !== 0) {
             let now = new Date().getTime()
             let id = new Date().getTime() + '_' + Math.floor(Math.random()*10000)
             let data = {
                 id: id,
-                userId: req.userId,
+                userId: ctx.session.userId,
                 author: res.name,
                 title: req.title,
                 preview: req.preview,

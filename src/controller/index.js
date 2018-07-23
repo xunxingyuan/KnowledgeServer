@@ -10,9 +10,9 @@ const options = {
 const userSchema = require('./user')
 const authSchema = require('./auth')
 const knowSchema = require('./knowledge')
-const chargeSchema = require('./user')
-const tradeSchema = require('./user')
-const walletSchema = require('./user')
+const chargeSchema = require('./charge')
+const tradeSchema = require('./trade')
+const walletSchema = require('./wallet')
 
 
 //数据库认证

@@ -1,6 +1,7 @@
 const db = require('../controller/index')
 const User = db.User
 const Auth = db.Auth
+const Wallet = db.Wallet
 const Json = require('../tools/jsonResponse')
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
         let phone = req.phone
         let res = await User.find({ phone: phone })
         if (res.length !== 0) {
-            Json.res(ctx,201,'用户已经存在')
+            Json.res(ctx, 201, '用户已经存在')
         } else {
             let now = new Date().getTime()
             let id = now + req.name
@@ -29,12 +30,21 @@ module.exports = {
                 'id': id,
                 'password': req.password,
             }
+            let walletData = {
+                'userId': id,
+                'left': 0,
+                'earn': 0,
+                'used': 0,
+                'withdraw': 0,
+                'modify': now
+            }
             const result = await new User(data).save()
             const authResult = await new Auth(authData).save()
-            if (result&&authResult) {
-                Json.res(ctx,200,'新建用户成功')
+            const createWallet = await new Wallet(walletData).save()
+            if (result && authResult&&createWallet) {
+                Json.res(ctx, 200, '新建用户成功')
             } else {
-                Json.res(ctx,10001,'未知错误')
+                Json.res(ctx, 10001, '未知错误')
             }
         }
     }

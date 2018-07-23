@@ -7,6 +7,7 @@ const logger = require('koa-logger')
 const users = require('./routes/users')
 const knowlegde = require('./routes/knowledge')
 const public = require('./routes/public')
+const wallet = require('./routes/wallet')
 const session = require("koa-session2")
 const store = require('./src/tools/store')
 
@@ -31,7 +32,7 @@ app.use(session({
 }));
 app.use(async (ctx, next) => {
   ctx.set("Access-Control-Allow-Credentials", true)
-  if(ctx.url === '/users/login'||ctx.url.indexOf('/public/')>-1){
+  if(ctx.url === '/users/register'||ctx.url === '/users/login'||ctx.url.indexOf('/public/')>-1){
     await next()
   }else{
     if(ctx.session.hasOwnProperty('userId')&&ctx.session.userId!==null){
@@ -57,7 +58,7 @@ app.use(async (ctx, next) => {
 app.use(users.routes(), users.allowedMethods())
 app.use(knowlegde.routes(), knowlegde.allowedMethods())
 app.use(public.routes(), public.allowedMethods())
-
+app.use(wallet.routes(), wallet.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
