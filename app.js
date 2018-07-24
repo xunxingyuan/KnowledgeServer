@@ -8,6 +8,7 @@ const users = require('./routes/users')
 const knowlegde = require('./routes/knowledge')
 const public = require('./routes/public')
 const wallet = require('./routes/wallet')
+const trade = require('./routes/trade')
 const session = require("koa-session2")
 const store = require('./src/tools/store')
 
@@ -59,6 +60,7 @@ app.use(users.routes(), users.allowedMethods())
 app.use(knowlegde.routes(), knowlegde.allowedMethods())
 app.use(public.routes(), public.allowedMethods())
 app.use(wallet.routes(), wallet.allowedMethods())
+app.use(trade.routes(), trade.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
