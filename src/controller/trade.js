@@ -6,10 +6,11 @@ const TradeSchema = new Schema({
     userId: String,
     //交易时间
     tradeTime: Number,
-    //交易方式（1：购买，0：收入）
-    tradeType: Number,
     //商品ID
     productId: String,
     //金额
+    price: Number,
+    //商品归属
+    owner: String
 })
 module.exports =  TradeSchema

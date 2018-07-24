@@ -14,4 +14,16 @@ const WalletSchema = new Schema({
   //最近变动时间
   modify: Number
 })
+
+WalletSchema.static.add = async (data)=>{
+  let now = new Date().getTime()
+  let id = now + '_' + Math.floor(Math.random()*10000)
+  let cb = await this.update({userId: data.userId},{
+    $set: {
+
+    }
+  })
+}
+
+
 module.exports =  WalletSchema
