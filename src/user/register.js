@@ -13,7 +13,7 @@ module.exports = {
             Json.res(ctx, 201, '用户已经存在')
         } else {
             let now = new Date().getTime()
-            let id = now + req.name
+            let id = now + '_' + Math.floor(Math.random()*10000)
             let data = {
                 "id": id,
                 "phone": req.phone,
