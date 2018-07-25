@@ -5,7 +5,7 @@ const Json = require('../tools/jsonResponse')
 const query = {
     queryUser: async (ctx,next)=>{
         let req = ctx.query
-        let result = await User.findOne({id: req.userId})
+        let result = await User.findOne({id: ctx.session.userId})
         if(result){
             let userData = {
                 "phone": result.phone,

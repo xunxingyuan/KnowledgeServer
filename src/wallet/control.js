@@ -22,14 +22,15 @@ module.exports = {
             if(walletData.left < req.count){
                 Json.res(ctx,10004,'提现金额不能超过余额')
             }else{
-                let left = walletData.left - req.count
-                let withdraw = walletData.withdraw + req.count
-                let updateData = {$set : {
-                    left: left,
-                    withdraw: withdraw,
-                    modify: now
-                }};
-                let result = await Wallet.updateOne({userId: ctx.session.userId},updateData)
+                let result = await Wallet.updateOne({userId: ctx.session.userId},{
+                    $inc: {
+                        left: -req.count,
+                        withdraw: req.count,
+                    },
+                    $set:{
+                        modify: now
+                    }
+                })
                 let withdrawResult = await new Charge(data).save()
                 if(result&&withdrawResult){
                     Json.res(ctx,200,'提现成功')
@@ -38,12 +39,14 @@ module.exports = {
                 }
             }
         }else if(req.type === '0'){
-            let left = walletData.left + req.count
-            let updateData = {$set : {
-                left: left,
-                modify: now
-            }};
-            let result = await Wallet.updateOne({userId: ctx.session.userId},updateData)
+            let result = await Wallet.updateOne({userId: ctx.session.userId},{
+                $inc: {
+                    left: req.count
+                },
+                $set:{
+                    modify: now
+                }
+            })
             let chargeResult = await new Charge(data).save()
             if(result&&chargeResult){
                 Json.res(ctx,200,'充值成功')
