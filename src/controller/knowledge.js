@@ -15,4 +15,11 @@ const KnowSchema = new Schema({
   state: Number,
   count: Number
 })
+
+KnowSchema.static.getUserKnowledge = async (data)=>{
+  let result = this.find({
+    userId: data.userId
+  })
+  return result
+}
 module.exports =  KnowSchema

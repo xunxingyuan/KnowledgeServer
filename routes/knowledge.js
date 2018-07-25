@@ -8,4 +8,8 @@ router.post('/create', async (ctx, next) => {
   await Knowledge.Create.create(ctx,next)
 })
 
+router.get('/query', async (ctx,next)=>{
+  await Knowledge.Query.query(ctx,next)
+})
+
 module.exports = router
