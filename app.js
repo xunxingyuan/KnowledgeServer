@@ -41,7 +41,7 @@ app.use(async (ctx, next) => {
     }else{
       ctx.body = {
         code: 10005,
-        msg: 'session过期，请重新登录'
+        msg: '未登录或者session过期，请重新登录'
       }
     }
   }
