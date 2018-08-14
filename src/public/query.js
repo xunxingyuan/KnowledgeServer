@@ -27,5 +27,8 @@ module.exports = {
         }else{
             Json.res(ctx,10001,'未知错误')
         }
+    },
+    recommend: async (ctx,next)=>{
+        
     }
 }
