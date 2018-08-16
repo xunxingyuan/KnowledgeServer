@@ -11,5 +11,8 @@ module.exports = {
     },
     updatePassword: async (ctx,next)=>{
 
+    },
+    updateMail: async (ctx,next)=>{
+
     }
 }
