@@ -16,4 +16,8 @@ router.get('/countAdd', async (ctx, next) => {
   await Knowledge.Update.addCount(ctx, next)
 })
 
+router.delete('/delete', async (ctx, next)=>{
+  await Knowledge.Update.delete(ctx, next)
+})
+
 module.exports = router
