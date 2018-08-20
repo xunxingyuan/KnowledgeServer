@@ -1,4 +1,5 @@
 const query = require('./query');
+const update = require('./knowledge')
 
 
 const Query = {

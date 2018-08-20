@@ -1,9 +1,11 @@
 const create = require('./create');
 const query = require('./query')
+const update = require('./update')
 
 const Knownledge = {
     Create: create,
-    Query: query
+    Query: query,
+    Update: update
 }
 
 module.exports = Knownledge

@@ -8,4 +8,6 @@ router.get('/query', async (ctx, next) => {
   await public.knowledgeQuery.query(ctx,next)
 })
 
+
+
 module.exports = router
